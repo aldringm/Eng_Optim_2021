@@ -10,11 +10,17 @@ Sets, parameters and variables no modelo:
 
 Sets:
 Trucks:              manuscript = mathcal(T), model file = KC;
+
 Excavators:          manuscript = mathcal(E), model file = JM;
+
 Discharges:          manuscript = mathcal(D), model file = DE;
+
 Fronts:              manuscript = mathcal(F), model file = F;
+
 Elements:            manuscript = mathcal(G), model file = TE;
+
 Particle size range: manuscript = mathcal(S), model file = GR;
+
 Materials:           manuscritp = mathcal(M), model file = MA;
 
 
@@ -55,11 +61,19 @@ Number of materials per front:     manuscript = NM, model_file = 4;
 Decision variables:
 
 manuscript = x,    model_file = x;
+
 manuscript = w,    model_file = w;
+
 manuscript = gd^+, model_file = de_max_teor;
+
 manuscript = gd^-, model_file = de_min_teor;
+
 manuscript = sd^+, model_file = de_max_gra;
+
 manuscript = sd^-, model_file = de_min_gra;
+
 manuscript = sd^-, model_file = de_min_gra;
+
 manuscript = srd,  model_file = erem;
+
 manuscript = un,   model_file = FK;
