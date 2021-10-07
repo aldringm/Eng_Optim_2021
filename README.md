@@ -1,4 +1,4 @@
-# Eng_Optim_2021
+# Lexicographic Goal Programming Approach for a Short-TermMining Planning Problem
 
 Orientations:
 
