@@ -1,9 +1,7 @@
 # Lexicographic Goal Programming Approach for a Short-TermMining Planning Problem
 
-Orientations:
-
 To run the model, download the file Data.py and Model.py
-The scenarios described in the paper can be reproduced by setting the variable to and the variable disp inside the Data.py file
+The scenarios described in the paper can be reproduced by setting the variable "to" and the variable "disp" inside the Data.py file
 For example, to run the scenario with 2 excavators and tolerance equal to 0, assign disp = availability [0] and to = tolerance[0].
 
 Below are the corresponding labels between the manuscript and the template file. 
