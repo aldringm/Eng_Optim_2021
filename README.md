@@ -21,20 +21,35 @@ Materials:           manuscritp = mathcal(M), model file = MA;
 Parameters:
 
 Type of each discharge:            manuscript = DT, model file = DT;
+
 Mass of material in each front:    manuscript = MM, model_file = MM;
+
 Extraction rate of excavators:     manuscript = ER, model_file = ER;
+
 Shift Duration:                    manuscript = SD, model_file = SD;
+
 Material type:                     manuscript = MT, model_file = MT;
+
 Trucks capacities                  manuscript = TC, model_file = TC;
+
 Cycle times:                       manuscript = CT, model_file = CT;
+
 Number of available trucks:        manuscript = N,  model_file = N;
+
 Production rate of ore discharges: manuscript = DR, model_file = DR;
+
 Grade targets:                     manuscript = GT, model_file = GT;
+
 Materials grades in fronts:        manuscript = GM, model_file = GM;
+
 Percentage of particle size range: manuscript = SP, model_file = SP;
+
 Allowable tolerance:               manuscript = epsilon, model_file = to;
+
 Target for the proportion of ore in the particle size range: manuscript = ST, model_file = ST;
+
 Target for the stripping ratio:    manuscritp = WT, model_file = WT;
+
 Number of materials per front:     manuscript = NM, model_file = 4;
 
 Decision variables:
