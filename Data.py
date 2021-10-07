@@ -1,8 +1,6 @@
 from gurobipy import *
 
 def data():
-
-
     MA=["W","HG","MG","LG"]
     F = [1,2,3,4,5,6,8,9,10]
     JM = [1,2,3,4,5]
@@ -10,20 +8,19 @@ def data():
     TE = ["FE1","FE2","FE5"]
     KC = [1,2]
     GR = ["G1","G2","G5"]
-    tempo = 8
-    rem = 0.78
+    SD = 8
+    WT = 0.78
+    tolerancia=[0.0,0.01,0.02,0.03,0.04,0.05]
+    to = tolerancia[2] # ESPSILON VALUE
+    disponibilidade = [[1, 1, 0, 0, 0, 0, 0], [1, 1, 1, 0, 0, 0, 0], [1, 1, 1, 1, 0, 0, 0], [1, 1, 1, 1, 1, 0, 0]]
+    disp = disponibilidade[0] # NUMBER OF EXCAVATOR
 
-
-
-    carga,frota,Pmin,Pmax,comp_mina,dj = multidict({
-    (1):[1,1103.93477319778,1200,0,1],
-    (2):[2,1450,1500,0,1],
-    (3):[3,1138.21313322019,1300,0,1],
-    (4):[3,1138.21313322019,1300,0,1],
-    (5):[4,452,450,2,1],
-    (6):[4,408.748626250968,450,0,0],
-    (7):[4,408.748626250968,450,0,0]
-
+    carga,frota,ER,comp_mina,dj = multidict({
+    (1):[1,1200,0,1],
+    (2):[2,1500,0,1],
+    (3):[3,1300,0,1],
+    (4):[3,1300,0,1],
+    (5):[4,450,1,1]
     })
 
     frentes, numateriais, mina = multidict({
@@ -37,7 +34,7 @@ def data():
         (9):[4,2],
         (10):[4,2]
         })
-    materiais,massa,atv = multidict({
+    materiais,MM,MT = multidict({
         (1,"W"): [1325.625,0],
         (1,"HG"): [2476.65,1],
         (1,"MG"): [0,0],
@@ -76,7 +73,7 @@ def data():
         (10,"LG"): [0,0]
     })
         
-    ciclo, tciclo = multidict({
+    ciclo, CT = multidict({
         (1,1,"W",1):24.01,
         (1,1,"W",2):18.79,
         (1,1,"HG",1):18.6399999999999,
@@ -423,7 +420,7 @@ def data():
     })
 
 
-    teores,t,part = multidict({
+    teores,GM,SP = multidict({
         (1,"W","FE1"): [0.001,0.001],
         (1,"W","FE2"): [0.001,0.001],
         (1,"W","FE5"): [0.001,0.002],
@@ -478,55 +475,55 @@ def data():
 
     })
 
-    teores2,lmeta,lsup,mindes,maxdes = multidict({
-        (1,"FE1"):[59,61,931,248],
-        (1,"FE2"):[62,60,564,395],
-        (1,"FE5"):[46,44,1342,2030],
-        (2,"FE1"):[60,59,223,103],
-        (2,"FE2"):[62,62,187,94],
-        (2,"FE5"):[62,61,871,84],
-        (3,"FE1"):[0,0,0,0],
-        (3,"FE2"):[0,0,0,0],
-        (3,"FE5"):[0,0,0,0],
-        (4,"FE1"):[0,0,0,0],
-        (4,"FE2"):[0,0,0,0],
-        (4,"FE5"):[0,0,0,0],
-        (5,"FE1"):[0,0,0,0],
-        (5,"FE2"):[0,0,0,0],
-        (5,"FE5"):[0,0,0,0],
-        (6,"FE1"):[0,0,0,0],
-        (6,"FE2"):[0,0,0,0],
-        (6,"FE5"):[0,0,0,0],
-        (7,"FE1"):[0,0,0,0],
-        (7,"FE2"):[0,0,0,0],
-        (7,"FE5"):[0,0,0,0]
+    teores2,GT,mindes,maxdes = multidict({
+        (1,"FE1"):[59,931,248],
+        (1,"FE2"):[62,564,395],
+        (1,"FE5"):[46,1342,2030],
+        (2,"FE1"):[60,223,103],
+        (2,"FE2"):[62,187,94],
+        (2,"FE5"):[62,871,84],
+        (3,"FE1"):[0,0,0],
+        (3,"FE2"):[0,0,0],
+        (3,"FE5"):[0,0,0],
+        (4,"FE1"):[0,0,0],
+        (4,"FE2"):[0,0,0],
+        (4,"FE5"):[0,0,0],
+        (5,"FE1"):[0,0,0],
+        (5,"FE2"):[0,0,0],
+        (5,"FE5"):[0,0,0],
+        (6,"FE1"):[0,0,0],
+        (6,"FE2"):[0,0,0],
+        (6,"FE5"):[0,0,0],
+        (7,"FE1"):[0,0,0],
+        (7,"FE2"):[0,0,0],
+        (7,"FE5"):[0,0,0]
     })
     #GRANULOMETRIA
 
-    granulometrias1,linfg, lsupg, mindesg,maxdesg = multidict({
+    granulometrias1,ST,mindesg,maxdesg = multidict({
         #(1,"G1"):[23,24,3384,1692],
-        (1,"G1"):[26,26,3384,1692],
+        (1,"G1"):[26,3384,1692],
         #(1,"G2"):[26,26,2632,752],
-        (1,"G2"):[24,24,2632,752],
-        (1,"G5"):[50,51,5640,564],
-        (2,"G1"):[20,30,780,156],
-        (2,"G2"):[24,28,468,104],
-        (2,"G5"):[47,53,1092,52],
-        (3,"G1"):[0,0,0,0],
-        (3,"G2"):[0,0,0,0],
-        (3,"G5"):[0,0,0,0],
-        (4,"G1"):[0,0,0,0],
-        (4,"G2"):[0,0,0,0],
-        (4,"G5"):[0,0,0,0],
-        (5,"G1"):[0,0,0,0],
-        (5,"G2"):[0,0,0,0],
-        (5,"G5"):[0,0,0,0],
-        (6,"G1"):[0,0,0,0],
-        (6,"G2"):[0,0,0,0],
-        (6,"G5"):[0,0,0,0],
-        (7,"G1"):[0,0,0,0],
-        (7,"G2"):[0,0,0,0],
-        (7,"G5"):[0,0,0,0]
+        (1,"G2"):[24,2632,752],
+        (1,"G5"):[50,5640,564],
+        (2,"G1"):[20,780,156],
+        (2,"G2"):[24,468,104],
+        (2,"G5"):[47,1092,52],
+        (3,"G1"):[0,0,0],
+        (3,"G2"):[0,0,0],
+        (3,"G5"):[0,0,0],
+        (4,"G1"):[0,0,0],
+        (4,"G2"):[0,0,0],
+        (4,"G5"):[0,0,0],
+        (5,"G1"):[0,0,0],
+        (5,"G2"):[0,0,0],
+        (5,"G5"):[0,0,0],
+        (6,"G1"):[0,0,0],
+        (6,"G2"):[0,0,0],
+        (6,"G5"):[0,0,0],
+        (7,"G1"):[0,0,0],
+        (7,"G2"):[0,0,0],
+        (7,"G5"):[0,0,0]
     })
 
     granulometrias2, gran = multidict({
@@ -584,7 +581,7 @@ def data():
 
     })
 
-    descarga,Prod,britador,mlc,tamanho = multidict({
+    descarga,DR,DT,mlc,tamanho = multidict({
         (1):[2350,1,0,100000],
         (2):[275,1,0,100000],
         (3):[3,0,0,0],
@@ -594,12 +591,12 @@ def data():
         (7):[3,0,0,0]
     })
 
-    caminhao,frota,cm,ce = multidict({
+    caminhao,N,TC,ce = multidict({
         (1):[12,135,135],
         (2):[15,64,64]
     })
-    return(tempo,rem,MA,F,JM,DE,TE,KC,GR,carga,Pmin,Pmax,numateriais,mina,dj,\
-                     materiais,massa,atv,ciclo,tciclo,teores,t,part, \
-                     teores2,lsup,lmeta,mindes,maxdes,granulometrias1,\
-                     linfg,lsupg,mindesg,maxdesg,granulometrias2, gran,\
-                     descarga,Prod,britador,mlc,tamanho,caminhao,frota,cm,ce,comp_mina)
+    return(SD,WT,MA,F,JM,DE,TE,KC,GR,carga,ER,numateriais,mina,dj,\
+                     materiais,MM,MT,ciclo,CT,teores,GM,SP, \
+                     teores2,GT,mindes,maxdes,granulometrias1,\
+                     ST,mindesg,maxdesg,granulometrias2, gran,\
+                     descarga,DR,DT,mlc,tamanho,caminhao,N,TC,ce,comp_mina,to,disp)
